@@ -1,37 +1,44 @@
 package test;
 
 import java.util.*;
-
 class Main {	
-	public String solution(String str){
-		String answer="";
-		// int m=Integer.MIN_VALUE, pos;
-		int m=Integer.MIN_VALUE;
-		int pos;
-		while((pos=str.indexOf(' '))!=-1){
-			String tmp=str.substring(0, pos);
-			int len=tmp.length();
-			if(len>m){
-				m=len;
-				answer=tmp;
+	public ArrayList<String> solution(int n, String[] str){
+		ArrayList<String> answer=new ArrayList<>(); 
+		for(String x : str){
+			char[] s=x.toCharArray();   // 문자 배열화 : toCharArray()
+			
+			// 직접 교환 : 손코딩 할때, 이 정도는 해야지
+			int lt=0, rt=x.length()-1;
+			// 양쪽 교환
+			while(lt<rt){
+				char tmp=s[lt];
+				s[lt]=s[rt];
+				s[rt]=tmp;
+				lt++;
+				rt--;
 			}
-			str=str.substring(pos+1);
+			String tmp=String.valueOf(s);
+			answer.add(tmp);
 		}
-		if(str.length()>m) answer=str;  // 마지막 단어
 		return answer;
 	}
 
 	public static void main(String[] args){
 		Main T = new Main();
 		Scanner kb = new Scanner(System.in);
-		String str=kb.nextLine();
-		System.out.print(T.solution(str));
+		int n=kb.nextInt();
+		String[] str=new String[n];
+		for(int i=0; i<n; i++){
+			str[i]=kb.next();
+		}
+		for(String x : T.solution(n, str)){
+			System.out.println(x);
+		}
 	}
 }
 
 /*
- 2번 방법 : indexOf(), subString()
- 	- indexOf() : 첫번째로 발견되는 인덱스의 위치 반환, 띄어쓰기를 못 찾으면 -1 반환
- 	- subString()
+- toCahrArray()
+- String.valueOf(s)
+	- s라는 문자 배열을 스트링화, static 메서드
  */
- 
