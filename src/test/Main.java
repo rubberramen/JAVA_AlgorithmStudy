@@ -2,23 +2,37 @@ package test;
 
 import java.util.*;
 class Main {	
-	public String solution(String s){
-		String answer="NO";
-		s=s.toUpperCase().replaceAll("[^A-Z]", "");  // [^A-Z] : 알파벳이 아닌 것들
-		// System.out.println(s);
-		String tmp=new StringBuilder(s).reverse().toString();
-		if(s.equals(tmp)) answer="YES";
+	public String solution(int n, int[] a, int[] b){
+		String answer="";
+		for(int i=0; i<n; i++){
+			if(a[i]==b[i]) answer+="D";     // answer에 누적
+			else if(a[i]==1 && b[i]==3) answer+="A";
+			else if(a[i]==2 && b[i]==1) answer+="A";
+			else if(a[i]==3 && b[i]==2) answer+="A";
+			else answer+="B";
+		}
+		// System.out.println(answer);
 		return answer;
 	}
-
 	public static void main(String[] args){
 		Main T = new Main();
 		Scanner kb = new Scanner(System.in);
-		String str=kb.nextLine();
-		System.out.print(T.solution(str));
+		int n=kb.nextInt();
+		int[] a=new int[n];
+		int[] b=new int[n];
+		for(int i=0; i<n; i++){
+			a[i]=kb.nextInt();
+		}
+		for(int i=0; i<n; i++){
+			b[i]=kb.nextInt();
+		}
+		// 출력을 줄 바꿈으로
+		for(char x : T.solution(n, a, b).toCharArray()) System.out.println(x);
 	}
 }
 
 /*
-- replaceAll에다가는 정규식 쓸 수 있다(replace에는 안됨)
+answer+="D"; : 스트링에다가 추가
+System.out.println(answer); : ABABD
+.toCharArray() : 스트링을 받아서 문자 배열로
 */
